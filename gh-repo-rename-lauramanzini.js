@@ -3,6 +3,7 @@
 /*
 Aqui ponemos comentarios
 */
+
 const ins = require("util").inspect;
 
 const shell = require('shelljs');
@@ -21,38 +22,29 @@ program.parse(process.argv);
 let args = program.args;
 debugger;
 
-let originalName = `${program.opts().name}`;
-
-let {org , repo, name } = program.opts(); // de esta manera estoy creando ALIAS 
-
-if(!org || !repo || !name) program.help();
-
-if (repo) console.log(`repo = ${repo}`);
-if (org) console.log(`org = ${org}`);
-if (name) console.log(`program.args = ${name}`);
-
-const getrepoID = (owner, newName) => `
-query getrepoID{
-    repository(owner: "ULL-ESIT-DMSI-1920", name: "prueba"){
+const getRepoId = (owner, name) => `
+query {
+    repository(owner: "${owner}", name: "${name}"){
       id
     }
   }
  `;
 
-const renamerepo = (id) => `   
-  mutation renamerepo($id: ID!){
-    updateRepository(input: 
-      {
-        name: "prueba-funciona"
-        repositoryId: $id
-      }
-    ) {
+const renameRepo = (id, newName) => `   
+  mutation {
+    updateRepository(input: { name: "${newName}", repositoryId: "${id}") {
       repository{
         name
       }
     }
   }
 `;
+
+let originalName = `${program.opts().name}`;
+
+let {org , repo, name } = program.opts(); // de esta manera estoy creando ALIAS 
+
+if(!org || !repo || !name) program.help();
 
 // comprobar que git y gh están instalados
 if (!shell.which('git')) {
@@ -74,3 +66,30 @@ r = JSON.parse(r.stdout);
 console.log(`The repo has been renamed to ${r.full_name}`);
 */
 
+// console.log(getRepoId(org, repo))  // 
+
+// Ejecuto la primera query
+let r = shell.exec(`gh api graphql -f query='${getRepoId(org, repo)}' --jq '.data.repository.id'`,
+                  {silent: true});
+
+if (r.code !== 0) {
+  console.error(r.stderr);
+  process.exit(r.code);
+}
+
+console.log("getRepoId return ****\n ", r.stdout);
+
+// Ejecuto la segunda query
+const Id = r.stdout;
+
+r = shell.exec(`gh api graphql -f query='${renameRepo(Id, name)}' --jq '.data.updateRepository.repository.name'`, 
+              {silent:true});
+
+if (r.code !== 0) {
+  console.error(r.stderr);
+  process.exit(r.code);
+}
+
+console.log("New repository name \n", r.stdout)
+
+//--jq '.data.updateRepository.repository.name'
