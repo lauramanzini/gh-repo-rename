@@ -40,7 +40,6 @@ const renameRepo = (id, newName) => `
   }
 `;
 
-let originalName = `${program.opts().name}`;
 
 let {org , repo, name } = program.opts(); // de esta manera estoy creando ALIAS 
 
@@ -72,24 +71,25 @@ console.log(`The repo has been renamed to ${r.full_name}`);
 let r = shell.exec(`gh api graphql -f query='${getRepoId(org, repo)}' --jq '.data.repository.id'`,
                   {silent: true});
 
+                  
 if (r.code !== 0) {
-  console.error(r.stderr);
-  process.exit(r.code);
+  console.error(r.stderr)
+  process.exit(r.code)
 }
 
-console.log("getRepoId return ****\n ", r.stdout);
+console.log("getRepoId return ****\n ", r.stdout)
 
 // Ejecuto la segunda query
-const Id = r.stdout;
+const ID = r.stdout
 
-r = shell.exec(`gh api graphql -f query='${renameRepo(Id, name)}' --jq '.data.updateRepository.repository.name'`, 
+r = shell.exec(`gh api graphql -f query='${renameRepo(ID, name)}' --jq '.data.updateRepository.repository.name'`, 
               {silent:true});
 
+
 if (r.code !== 0) {
-  console.error(r.stderr);
-  process.exit(r.code);
+  console.error(r.stderr)
+  process.exit(r.code)
 }
 
-console.log("New repository name \n", r.stdout)
+console.log("New repository name ****\n ", r.stdout);
 
-//--jq '.data.updateRepository.repository.name'
