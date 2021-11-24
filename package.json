@@ -4,10 +4,10 @@
   "description": "",
   "main": "gh-repo-rename-lauramanzini.js",
   "scripts": {
-    "create-prueba": "gh create-repo prueba ULL-ESIT-DMSI-1920",
-    "list-prueba": "gh submodule-add -s prueba -o ULL-ESIT-DMSI-1920 -n",
-    "test": "./gh-repo-rename-lauramanzini -o ULL-ESIT-DMSI-1920 -r prueba -n prueba-funciona; npm run list-prueba",
-    "back": "./gh-repo-rename-lauramanzini  -o ULL-ESIT-DMSI-1920 -r prueba-funciona  -n prueba; npm run list-prueba",
+    "create-prueba": "gh create-repo prueba-laura ULL-ESIT-DMSI-1920",
+    "list-prueba": "gh submodule-add -s prueba-laura -o ULL-ESIT-DMSI-1920 -n",
+    "test": "./gh-repo-rename-lauramanzini -o ULL-ESIT-DMSI-1920 -r prueba-laura -n prueba-laura-funciona; npm run list-prueba",
+    "back": "./gh-repo-rename-lauramanzini  -o ULL-ESIT-DMSI-1920 -r prueba-laura-funciona  -n prueba-laura; npm run list-prueba",
     "start": "node gh-repo-rename-lauramanzini.js"
   },
   "repository": {
