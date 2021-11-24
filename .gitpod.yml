@@ -1,6 +1,6 @@
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - init:  brew install gh; eval "$(code ~/.bash_profile)"; eval "$(gh completion -s bash)"; brew install jq; eval "$(gh extension install crguezl/gh-submodule-add)";  # runs during prebuild
+  - init:  brew install gh; eval "$(code ~/.bash_profile)"; eval "$(gh completion -s bash)"; brew install jq; eval "$(gh extension install crguezl/gh-submodule-add)"; npm install; # runs during prebuild
     command: echo 'start script'
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
