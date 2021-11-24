@@ -69,27 +69,30 @@ console.log(`The repo has been renamed to ${r.full_name}`);
 
 // Ejecuto la primera query
 let r = shell.exec(`gh api graphql -f query='${getRepoId(org, repo)}' --jq '.data.repository.id'`,
-                  {silent: true});
+                  {silent: true}
+                  );
 
                   
 if (r.code !== 0) {
   console.error(r.stderr)
   process.exit(r.code)
-}
+};
 
-console.log("getRepoId return ****\n ", r.stdout)
+console.log("Repository id: ", r.stdout)
 
 // Ejecuto la segunda query
 const ID = r.stdout
 
 r = shell.exec(`gh api graphql -f query='${renameRepo(ID, name)}' --jq '.data.updateRepository.repository.name'`, 
-              {silent:true});
+              {silent:true}
+              );
 
 
 if (r.code !== 0) {
   console.error(r.stderr)
   process.exit(r.code)
-}
+};
 
-console.log("New repository name ****\n ", r.stdout);
+console.log("New repository name: ", r.stdout);
+
 
