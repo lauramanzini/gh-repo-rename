@@ -32,7 +32,7 @@ query {
 
 const renameRepo = (id, newName) => `   
   mutation {
-    updateRepository(input: { name: "${newName}", repositoryId: "${id}") {
+    updateRepository(input: { name: "${newName}", repositoryId: "${id}" }) {
       repository{
         name
       }
