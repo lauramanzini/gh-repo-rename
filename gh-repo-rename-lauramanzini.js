@@ -81,7 +81,8 @@ if (r.code !== 0) {
 console.log("Repository id: ", r.stdout)
 
 // Ejecuto la segunda query
-const ID = r.stdout
+const ID = r.stdout.replace(/\s+$/g,'');
+
 
 r = shell.exec(`gh api graphql -f query='${renameRepo(ID, name)}' --jq '.data.updateRepository.repository.name'`, 
               {silent:true}
@@ -93,6 +94,6 @@ if (r.code !== 0) {
   process.exit(r.code)
 };
 
-console.log("New repository name: ", r.stdout);
+//console.log(`The repository '${org}/${repo}' has been renamed to '${r.stdout.replace(/\s+$,'')}'`);
 
 
