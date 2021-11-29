@@ -94,6 +94,6 @@ if (r.code !== 0) {
   process.exit(r.code)
 };
 
-//console.log(`The repository '${org}/${repo}' has been renamed to '${r.stdout.replace(/\s+$,'')}'`);
+console.log(`The repository '${org}/${repo}' has been renamed to '${r.stdout.replace(/\s+$/, '')}'`);
 
 
