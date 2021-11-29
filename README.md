@@ -1,13 +1,15 @@
-# Practica gh cli
- 
- **Laura Manzini**
+ # Extension gh-repo-rename
 
- alu0101531700@ull.edu.es 
+ ## Description 
 
- # Installation
-```
-gh extension install lauramanzini/gh-repo-rename
-```
+ Through this gh extension you will be able to rename a repository belonging to an organization.
+
+
+ ## Installation
+
+ ```
+ gh extension install lauramanzini/gh-repo-rename
+ ```
 
  ## Usage
 
@@ -21,4 +23,8 @@ gh extension install lauramanzini/gh-repo-rename
   -n, --name <name>         name
   -h, --help                display help for command
  ```
+
+ ## Author
+
+ Laura Manzini
 
