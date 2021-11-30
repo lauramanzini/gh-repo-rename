@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-/*
-Aqui ponemos comentarios
-*/
-
 const ins = require("util").inspect;
 
 const shell = require('shelljs');
@@ -40,12 +36,11 @@ const renameRepo = (id, newName) => `
   }
 `;
 
-
 let {org , repo, name } = program.opts(); // de esta manera estoy creando ALIAS 
 
 if(!org || !repo || !name) program.help();
 
-// comprobar que git y gh están instalados
+// Comprobar que git y gh están instalados
 if (!shell.which('git')) {
   shell.echo('Sorry, this script requires git');
   shell.exit(1);
@@ -56,22 +51,10 @@ if (!shell.which('gh')) {
   shell.exit(1);
 }
 
-/* 
-execute command 
-let r = shell.exec(`gh api -X PATCH /repos/${org}/${repo} -f name=${name}`, {silent: true});
-
-r = JSON.parse(r.stdout);
-
-console.log(`The repo has been renamed to ${r.full_name}`);
-*/
-
-// console.log(getRepoId(org, repo))  // 
-
 // Ejecuto la primera query
 let r = shell.exec(`gh api graphql -f query='${getRepoId(org, repo)}' --jq '.data.repository.id'`,
                   {silent: true}
                   );
-
                   
 if (r.code !== 0) {
   console.error(r.stderr)
@@ -83,11 +66,9 @@ console.log("Repository id: ", r.stdout)
 // Ejecuto la segunda query
 const ID = r.stdout.replace(/\s+$/g,'');
 
-
 r = shell.exec(`gh api graphql -f query='${renameRepo(ID, name)}' --jq '.data.updateRepository.repository.name'`, 
               {silent:true}
               );
-
 
 if (r.code !== 0) {
   console.error(r.stderr)
