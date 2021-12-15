@@ -1,5 +1,5 @@
 {
-  "name": "gh-repo-rename",
+  "name": "@lauramanzini/gh-repo-rename",
   "version": "1.2.0",
   "description": "",
   "main": "gh-repo-rename.js",
